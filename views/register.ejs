@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/styles.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+<head>
+  <title>Register</title>
+</head>
+
+<body>
+  <h1>Register</h1>
+  <form action="/register" method="POST">
+    <input class="textInp" name="name" placeholder="Name" required />
+    <input class="textInp" name="email" placeholder="Email" type="email" required />
+    <input class="textInp" name="password" placeholder="Password" type="password" required id="pass" />
+    <div class="passShow">
+      <input type="checkbox" onclick="document.getElementById('pass').type = this.checked ? 'text' : 'password'">
+      <span>Show Password</span>
+    </div>
+    <button class="btn" type="submit">Register <i class="ri-login-circle-line"></i></button>
+  </form>
+  <div class="links"><a href="/">Back <i class="ri-corner-down-left-line"></i></a>
+    <a href="/login">Login <i class="ri-login-circle-line"></i></a>
+  </div>
+</body>
+
+</html>
