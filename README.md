@@ -5,7 +5,7 @@ A secure Node.js web application that allows users to register, log in, and view
 ---
 
 ### 🔗 Live Demo  
-**👉 [View Deployed App]()**
+**👉 [View Deployed App](https://secret-app-0ep4.onrender.com)**
 
 ## 🚀 Features
 
