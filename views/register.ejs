@@ -11,6 +11,14 @@
 
 <body>
   <h1>Register</h1>
+  <% if (errors && errors.length > 0) { %>
+  <div class="error-box">
+    <% errors.forEach(function(error) { %>
+      <p><%= error %></p>
+    <% }); %>
+  </div>
+<% } %>
+
   <form action="/register" method="POST">
     <input class="textInp" name="name" placeholder="Name" required />
     <input class="textInp" name="email" placeholder="Email" type="email" required />

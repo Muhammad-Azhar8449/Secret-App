@@ -47,22 +47,38 @@ app.get('/', (req, res) => {
 });
 
 app.get('/register', (req, res) => {
-  res.render('register');
+  res.render('register', { errors: [] });
 });
 
 app.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
 
-  // ✅ CORRECT regex (no double backslashes)
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegex = /^.{6,}$/; // Only check length (6+ characters)
+  const errors = [];
 
   if (!emailRegex.test(email)) {
-    return res.send('❌ Invalid email format');
+    errors.push("Invalid email format.");
   }
 
-  if (!passwordRegex.test(password)) {
-    return res.send('❌ Password must be at least 6 characters');
+  // 🔍 Individual checks for password
+  if (password.length < 6) {
+    errors.push("Password must be at least 6 characters long.");
+  }
+  if (!/[A-Z]/.test(password)) {
+    errors.push("You must include at least one uppercase letter.");
+  }
+  if (!/[a-z]/.test(password)) {
+    errors.push("You must include at least one lowercase letter.");
+  }
+  if (!/[0-9]/.test(password)) {
+    errors.push("You must include at least one number.");
+  }
+  if (!/[@$!%*?&]/.test(password)) {
+    errors.push("You must include at least one special character (@$!%*?&).");
+  }
+
+  if (errors.length > 0) {
+    return res.render('register', { errors }); // ⬅️ We send all the errors to EJS
   }
 
   const hashedPassword = await bcrypt.hash(password, 12);
@@ -71,7 +87,7 @@ app.post('/register', async (req, res) => {
     await User.create({ name, email, password: hashedPassword });
     res.redirect('/login');
   } catch (err) {
-    res.send('❌ Email already exists or error occurred.');
+    res.render('register', { errors: ['Email already exists or error occurred.'] });
   }
 });
 
